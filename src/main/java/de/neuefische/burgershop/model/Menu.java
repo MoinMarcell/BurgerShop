@@ -1,4 +1,5 @@
 package de.neuefische.burgershop.model;
+
 public record Menu(
         String id,
         String name,
