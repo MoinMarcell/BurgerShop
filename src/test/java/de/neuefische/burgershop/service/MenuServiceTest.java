@@ -61,4 +61,20 @@ class MenuServiceTest {
         // THEN
         assertThrows(NoSuchElementException.class, () -> menuRepo.getMenuById(id));
     }
+
+    @Test
+    void addMenu() {
+        // GIVEN
+        Menu expected = new Menu("1", "Spaghetti", 3.40, new Dish("1", "Spaghetti"), new Dish("1", "Salad"), new Beverage("1", "Sprite"));
+
+        // WHEN
+        when(menuRepo.addMenu(expected)).thenReturn(expected);
+        when(idService.generateIt()).thenReturn("1");
+
+        Menu actual = menuService.addMenu(expected);
+
+        // THEN
+        assertEquals(expected, actual);
+        verify(menuRepo).addMenu(expected);
+    }
 }
