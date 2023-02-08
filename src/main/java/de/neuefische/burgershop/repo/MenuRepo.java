@@ -27,4 +27,9 @@ public class MenuRepo {
         }
         throw new NoSuchElementException("Menu with id " + id + " does not exist!");
     }
+
+    public Menu addMenu(Menu menu){
+        menuList.add(menu);
+        return menu;
+    }
 }
