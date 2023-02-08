@@ -36,4 +36,16 @@ public class MenuService {
         );
         return menuRepo.addMenu(menuToAdd);
     }
+
+    public Menu updateMenu(String id, Menu menu){
+        Menu menuToUpdate = new Menu(
+            id,
+            menu.name(),
+            menu.price(),
+            menu.mainDish(),
+            menu.sideDish(),
+            menu.beverage()
+        );
+        return menuRepo.updateMenu(id, menuToUpdate);
+    }
 }

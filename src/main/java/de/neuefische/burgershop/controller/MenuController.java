@@ -31,4 +31,9 @@ public class MenuController {
         return menuService.addMenu(menu);
     }
 
+    @PutMapping("/{id}")
+    public Menu updateMenu(@PathVariable String id, @RequestBody Menu menu){
+        return menuService.updateMenu(id, menu);
+    }
+
 }

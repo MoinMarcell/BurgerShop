@@ -32,4 +32,11 @@ public class MenuRepo {
         menuList.add(menu);
         return menu;
     }
+
+    public Menu updateMenu(String id, Menu menu){
+        Menu menuToDelete = getMenuById(id);
+        menuList.remove(menuToDelete);
+        menuList.add(menu);
+        return menu;
+    }
 }
