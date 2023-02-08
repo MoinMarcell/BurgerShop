@@ -18,4 +18,8 @@ public class MenuService {
     public List<Menu> getAllMenus() {
         return menuRepo.getMenuList();
     }
+
+    public Menu getMenuById(String id){
+        return menuRepo.getMenuById(id);
+    }
 }
