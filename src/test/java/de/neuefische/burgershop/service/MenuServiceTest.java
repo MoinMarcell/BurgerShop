@@ -93,6 +93,17 @@ class MenuServiceTest {
         // THEN
         assertEquals(expected, actual);
         verify(menuRepo).updateMenu(id, menuToUpdate);
+    }
 
+    @Test
+    void deleteMenu(){
+        // GIVEN
+        String id = "1";
+
+        // THEN
+        menuService.deleteMenu(id);
+
+        // THEN
+        verify(menuRepo).deleteMenu(id);
     }
 }

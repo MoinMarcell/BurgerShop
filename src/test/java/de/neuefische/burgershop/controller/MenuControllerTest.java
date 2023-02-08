@@ -172,4 +172,20 @@ class MenuControllerTest {
                         }
                         """));
     }
+
+    @Test
+    @DirtiesContext
+    void deleteMenu() throws Exception {
+        menuRepo.getMenuList().add(
+                new Menu(
+                        "1",
+                        "Spaghetti",
+                        3.40,
+                        new Dish("1", "Spaghetti"),
+                        new Dish("1", "Salad"),
+                        new Beverage("1", "Sprite")
+                ));
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/menus/1"))
+                .andExpect(status().isOk());
+    }
 }
