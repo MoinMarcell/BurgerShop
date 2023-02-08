@@ -10,13 +10,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class MenuServiceTest {
 
     MenuRepo menuRepo = mock(MenuRepo.class);
-    MenuService menuService = new MenuService(menuRepo);
+    IdService idService = mock(IdService.class);
+    MenuService menuService = new MenuService(menuRepo, idService);
 
     @Test
     void getAllMenus_whenListIsEmpty_ReturnEmptyList() {
