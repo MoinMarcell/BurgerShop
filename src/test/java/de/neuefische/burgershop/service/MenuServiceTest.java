@@ -77,4 +77,22 @@ class MenuServiceTest {
         assertEquals(expected, actual);
         verify(menuRepo).addMenu(expected);
     }
+
+    @Test
+    void updateMenu() {
+        // GIVEN
+        String id = "1";
+        Menu menuToUpdate = new Menu("1", "Spaghetti", 3.40, new Dish("1", "Spaghetti"), new Dish("1", "Salad"), new Beverage("1", "Sprite"));
+        Menu expected = new Menu("1", "Spaghetti", 10.99, new Dish("1", "Spaghetti"), new Dish("1", "Salad"), new Beverage("1", "Sprite"));
+
+        // WHEN
+        when(menuRepo.updateMenu(id, menuToUpdate)).thenReturn(expected);
+
+        Menu actual = menuService.updateMenu(id, menuToUpdate);
+
+        // THEN
+        assertEquals(expected, actual);
+        verify(menuRepo).updateMenu(id, menuToUpdate);
+
+    }
 }

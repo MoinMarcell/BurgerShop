@@ -116,4 +116,60 @@ class MenuControllerTest {
         );
         assertEquals(expected, result);
     }
+
+    @Test
+    @DirtiesContext
+    void updateMenu() throws Exception {
+        menuRepo.getMenuList().add(
+                new Menu(
+                        "1",
+                        "Spaghetti",
+                        3.40,
+                        new Dish("1", "Spaghetti"),
+                        new Dish("1", "Salad"),
+                        new Beverage("1", "Sprite")
+                ));
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/menus/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "id": "1",
+                                    "name": "Spaghetti",
+                                    "price": 10.99,
+                                    "mainDish": {
+                                        "id": "1",
+                                        "name": "Spaghetti"
+                                    },
+                                    "sideDish": {
+                                        "id": "1",
+                                        "name": "Salad"
+                                    },
+                                    "beverage": {
+                                        "id": "1",
+                                        "name": "Sprite"
+                                    }
+                                }
+                                """)
+                )
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                            "id": "1",
+                            "name": "Spaghetti",
+                            "price": 10.99,
+                            "mainDish": {
+                                "id": "1",
+                                "name": "Spaghetti"
+                            },
+                            "sideDish": {
+                                "id": "1",
+                                "name": "Salad"
+                            },
+                            "beverage": {
+                                "id": "1",
+                                "name": "Sprite"
+                            }
+                        }
+                        """));
+    }
 }
