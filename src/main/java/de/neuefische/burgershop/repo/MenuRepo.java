@@ -39,4 +39,9 @@ public class MenuRepo {
         menuList.add(menu);
         return menu;
     }
+
+    public void deleteMenu(String id){
+        Menu menuToDelete = getMenuById(id);
+        menuList.remove(menuToDelete);
+    }
 }

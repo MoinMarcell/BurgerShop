@@ -48,4 +48,8 @@ public class MenuService {
         );
         return menuRepo.updateMenu(id, menuToUpdate);
     }
+
+    public void deleteMenu(String id){
+        menuRepo.deleteMenu(id);
+    }
 }
