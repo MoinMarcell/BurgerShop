@@ -3,6 +3,7 @@ package de.neuefische.burgershop.controller;
 import de.neuefische.burgershop.model.Menu;
 import de.neuefische.burgershop.service.MenuService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,11 @@ public class MenuController {
     @GetMapping
     public List<Menu> getAllMenus(){
         return menuService.getAllMenus();
+    }
+
+    @GetMapping("/{id}")
+    public Menu getMenu(@PathVariable String id){
+        return menuService.getMenuById(id);
     }
 
 }
