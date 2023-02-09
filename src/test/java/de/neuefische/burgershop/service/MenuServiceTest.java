@@ -60,7 +60,7 @@ class MenuServiceTest {
         when(menuRepo.getMenuById(id)).thenThrow(new NoSuchElementException("Menu with id " + id + " does not exist!"));
 
         // THEN
-        assertThrows(NoSuchElementException.class, () -> menuRepo.getMenuById(id));
+        assertThrows(NoSuchElementException.class, () -> menuService.getMenuById(id));
     }
 
     @Test
