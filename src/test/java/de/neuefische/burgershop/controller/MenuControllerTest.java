@@ -45,7 +45,7 @@ class MenuControllerTest {
     @Test
     @DirtiesContext
     void getMenu_whenStatusIsOk_thenReturnMenu() throws Exception {
-        menuRepo.getMenuList().add(
+        menuRepo.addMenu(
                 new Menu(
                         "1",
                         "Spaghetti",
@@ -120,7 +120,7 @@ class MenuControllerTest {
     @Test
     @DirtiesContext
     void updateMenu() throws Exception {
-        menuRepo.getMenuList().add(
+        menuRepo.addMenu(
                 new Menu(
                         "1",
                         "Spaghetti",
@@ -176,7 +176,7 @@ class MenuControllerTest {
     @Test
     @DirtiesContext
     void deleteMenu() throws Exception {
-        menuRepo.getMenuList().add(
+        menuRepo.addMenu(
                 new Menu(
                         "1",
                         "Spaghetti",

@@ -5,6 +5,7 @@ import de.neuefische.burgershop.repo.MenuRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class MenuService {
@@ -22,7 +23,8 @@ public class MenuService {
     }
 
     public Menu getMenuById(String id){
-        return menuRepo.getMenuById(id);
+        return menuRepo.getMenuById(id)
+                .orElseThrow(NoSuchElementException::new);
     }
 
     public Menu addMenu(Menu menu){

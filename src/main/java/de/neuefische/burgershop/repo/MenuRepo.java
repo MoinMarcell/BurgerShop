@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Repository
 public class MenuRepo {
@@ -19,13 +20,9 @@ public class MenuRepo {
         return menuList;
     }
 
-    public Menu getMenuById(String id){
-        for(Menu menu : menuList){
-            if(menu.id().equals(id)){
-                return menu;
-            }
-        }
-        throw new NoSuchElementException("Menu with id " + id + " does not exist!");
+    public Optional<Menu> getMenuById(String id){
+        return menuList.stream()
+                .filter(menu -> menu.id().equals(id)).findFirst();
     }
 
     public Menu addMenu(Menu menu){
@@ -34,14 +31,14 @@ public class MenuRepo {
     }
 
     public Menu updateMenu(String id, Menu menu){
-        Menu menuToDelete = getMenuById(id);
+        Menu menuToDelete = getMenuById(id).orElseThrow(NoSuchElementException::new);
         menuList.remove(menuToDelete);
         menuList.add(menu);
         return menu;
     }
 
     public void deleteMenu(String id){
-        Menu menuToDelete = getMenuById(id);
+        Menu menuToDelete = getMenuById(id).orElseThrow(NoSuchElementException::new);
         menuList.remove(menuToDelete);
     }
 }

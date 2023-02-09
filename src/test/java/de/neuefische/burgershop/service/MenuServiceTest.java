@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -31,8 +32,8 @@ class MenuServiceTest {
         List<Menu> actual = menuService.getAllMenus();
 
         // THEN
-        assertEquals(expected, actual);
         verify(menuRepo).getMenuList();
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -41,13 +42,13 @@ class MenuServiceTest {
         Menu expected = new Menu("1", "Spaghetti", 3.40, new Dish("1", "Spaghetti"), new Dish("1", "Salad"), new Beverage("1", "Sprite"));
 
         // WHEN
-        when(menuRepo.getMenuById("1")).thenReturn(expected);
+        when(menuRepo.getMenuById("1")).thenReturn(Optional.of(expected));
 
         Menu actual = menuService.getMenuById("1");
 
         // THEN
-        assertEquals(expected, actual);
         verify(menuRepo).getMenuById("1");
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -74,8 +75,8 @@ class MenuServiceTest {
         Menu actual = menuService.addMenu(expected);
 
         // THEN
-        assertEquals(expected, actual);
         verify(menuRepo).addMenu(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -91,8 +92,8 @@ class MenuServiceTest {
         Menu actual = menuService.updateMenu(id, menuToUpdate);
 
         // THEN
-        assertEquals(expected, actual);
         verify(menuRepo).updateMenu(id, menuToUpdate);
+        assertEquals(expected, actual);
     }
 
     @Test
