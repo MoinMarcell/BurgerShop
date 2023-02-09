@@ -1,6 +1,5 @@
 package de.neuefische.burgershop.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neuefische.burgershop.model.Beverage;
 import de.neuefische.burgershop.model.Dish;
 import de.neuefische.burgershop.model.Menu;
@@ -12,12 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -28,9 +24,6 @@ class MenuControllerTest {
 
     @Autowired
     MenuRepo menuRepo;
-
-    @Autowired
-    ObjectMapper objectMapper;
 
     @Test
     @DirtiesContext
@@ -81,11 +74,10 @@ class MenuControllerTest {
     @Test
     @DirtiesContext
     void addMenu() throws Exception {
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/menus")
+       mockMvc.perform(MockMvcRequestBuilders.post("/api/menus")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                    "id": "1",
                                     "name": "Spaghetti",
                                     "price": 3.40,
                                     "mainDish": {
@@ -103,18 +95,25 @@ class MenuControllerTest {
                                 }
                                 """))
                 .andExpect(status().isOk())
-                .andReturn();
-        String content = response.getResponse().getContentAsString();
-        Menu result = objectMapper.readValue(content, Menu.class);
-        Menu expected = new Menu(
-                result.id(),
-                result.name(),
-                result.price(),
-                result.mainDish(),
-                result.sideDish(),
-                result.beverage()
-        );
-        assertEquals(expected, result);
+                .andExpect(content().json("""
+                                {
+                                    "name": "Spaghetti",
+                                    "price": 3.40,
+                                    "mainDish": {
+                                        "id": "1",
+                                        "name": "Spaghetti"
+                                    },
+                                    "sideDish": {
+                                        "id": "1",
+                                        "name": "Salad"
+                                    },
+                                    "beverage": {
+                                        "id": "1",
+                                        "name": "Sprite"
+                                    }
+                                }
+                                """))
+                .andExpect(jsonPath("$.id").isNotEmpty());
     }
 
     @Test
